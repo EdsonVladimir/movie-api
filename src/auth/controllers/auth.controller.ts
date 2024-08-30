@@ -1,9 +1,10 @@
 /**
  * @author Edson Sosa
  */
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthDto } from '../dtos/auth.dtos';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +12,7 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
-  login(@Req() req: Request) {
+  login(@Req() req: Request, @Body() payload: AuthDto) {
     return req.user;
   }
 }

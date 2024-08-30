@@ -3,9 +3,9 @@
  */
 
 export class User {
-  id?: number;
-  name?: string;
   email?: string;
-  password?: string;
+  id?: number;
   id_role: number;
+  name?: string;
+  password?: string;
 }
