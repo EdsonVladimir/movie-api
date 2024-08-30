@@ -23,9 +23,10 @@ import { Client } from 'pg';
         client.connect();
         return client;
       },
-      inject: [config.KEY],
-    },
+      inject: [config.KEY]
+    }
   ],
-  exports: ['PG'],
+  exports: ['PG']
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+}

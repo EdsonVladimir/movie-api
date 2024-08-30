@@ -1,8 +1,8 @@
 /**
  * @autor Edosn Sosa
  */
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateUserDto {
   @IsString()
@@ -26,4 +26,5 @@ export class CreateUserDto {
   readonly id_role: number;
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+}
