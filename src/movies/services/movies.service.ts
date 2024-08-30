@@ -2,7 +2,7 @@ import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
 import { CreateMovieDto, DeleteMovieDto, UpdateMovieDto } from '../dtos/movie.dtos';
-import { Client } from 'pg';
+import { Client, QueryResult } from 'pg';
 import { Movie } from '../entities/movie.entity';
 
 @Injectable()
@@ -132,17 +132,20 @@ export class MoviesService {
   }
 
   public async getAllMoviesCron(): Promise<Movie[]> {
-    const query: string = 'SELECT * FROM movies.movie'
+    const query: string = 'SELECT * FROM movies.movie';
     try {
-      const movies = this._http.get(`${this._BASE_URL}films`);
+      const movies = this._http.get(`${this._BASE_URL}films/`);
       const tasks = await lastValueFrom(movies);
-      const result = await this._clientPg.query(query);
+      const apiResult: Movie[] = tasks.data.results;
 
-      return tasks.data.result.push(result);
+      const result = await this._clientPg.query(query);
+      const dbResult: Movie[] = result.rows;
+
+      const combineResults: Movie[] = [...dbResult, ...apiResult];
+      return combineResults;
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error);
     }
   }
-
 }

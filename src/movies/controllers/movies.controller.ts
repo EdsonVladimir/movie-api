@@ -19,7 +19,7 @@ export class MoviesController {
   @ApiBearerAuth(undefined)
   @ApiOperation({ summary: '* Endpoint para obtener la lista de películas. | No Necesita Token' })
   @Public()
-  @Get()
+  @Get('all')
   private _getAllMovies() {
     return this._movieService.getAllMoviesStarWarsApi();
   }
@@ -69,7 +69,7 @@ export class MoviesController {
       '* Endpoint para eliminar una película. Solo los "Administradores" deberían tener acceso a este endpoint | Necesita Token de Usuario Admin id_role = 1',
   })
   @Roles(Role.ADMIN)
-  @Get('cron')
+  @Get()
   private getAllMoviesCron() {
     return this._movieService.getAllMoviesCron();
   }

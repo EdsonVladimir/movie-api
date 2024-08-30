@@ -16,13 +16,12 @@ export class RolesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log(ROLES_KEY, context.getHandler())
     const roles = this._reflector.get<Role[]>(ROLES_KEY, context.getHandler());
 
     if (!roles) {
       return true;
     }
-console.log(roles)
+
     const request = context.switchToHttp().getRequest();
     if (!request.user) {
       throw new UnauthorizedException('your role is wrongsss');
