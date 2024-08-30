@@ -12,20 +12,22 @@ import { Client } from 'pg';
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { user, host, dbName, password, port } = configService.postgres;
+        const { user, host, dbName, password, port , ssl} = configService.postgres;
         const client = new Client({
           user,
           host,
           database: dbName,
           password,
-          port
+          port,
+          ssl
         });
         client.connect();
         return client;
       },
-      inject: [config.KEY],
-    },
+      inject: [config.KEY]
+    }
   ],
-  exports: ['PG'],
+  exports: ['PG']
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+}

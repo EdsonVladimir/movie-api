@@ -1,10 +1,11 @@
 /**
  * @author Edson Sosa
  */
+
 export class User {
-  id?: number;
-  name: string;
-  email: string;
-  password: string;
+  email?: string;
+  id_user?: number;
   id_role: number;
+  name?: string;
+  password?: string;
 }
