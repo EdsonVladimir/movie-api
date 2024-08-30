@@ -7,6 +7,8 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { enviroments } from './enviroments';
 import { AuthModule } from './auth/auth.module';
+import { MoviesModule } from './movies/movies.module';
+import { ComplementsModule } from './complements/complements.module';
 import config from './config';
 
 @Module({
@@ -28,6 +30,8 @@ import config from './config';
     UsersModule,
     DatabaseModule,
     AuthModule,
+    MoviesModule,
+    ComplementsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

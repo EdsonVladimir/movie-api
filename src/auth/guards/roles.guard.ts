@@ -1,12 +1,7 @@
 /**
  * @author Edson Sosa
  */
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 import { PayloadToken } from '../models/token.model';
@@ -21,15 +16,19 @@ export class RolesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
+    console.log(ROLES_KEY, context.getHandler())
     const roles = this._reflector.get<Role[]>(ROLES_KEY, context.getHandler());
 
     if (!roles) {
       return true;
     }
-
+console.log(roles)
     const request = context.switchToHttp().getRequest();
+    if (!request.user) {
+      throw new UnauthorizedException('your role is wrongsss');
+    }
     const user: PayloadToken = request.user as PayloadToken;
-    const isAuth: boolean = roles.some((role) => role === Number(user.role));
+    const isAuth: boolean = roles.some((role) => role == user.role);
 
     if (!isAuth) {
       throw new UnauthorizedException('your role is wrong');

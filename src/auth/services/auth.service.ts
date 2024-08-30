@@ -16,48 +16,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  validateUser(
-    email: string,
-    password: string,
-  ): Observable<{ access_token: string; user: User }> {
-    return from(this._usersService.findByEmail(email)).pipe(
-      switchMap((user: User) => {
-        if (!user) {
-          return of(null);
-        }
-
-        return from(bcrypt.compare(password, user.password)).pipe(
-          switchMap((isMatch) => {
-            if (isMatch) {
-              const { password, ...userWithoutPassword } = user;
-              return of(this.generateJWT(userWithoutPassword));
-            } else {
-              return of(null);
-            }
-          }),
-          catchError((error) => {
-            console.error('Error comparing passwords:', error);
-            throw new InternalServerErrorException(
-              'Error comparing passwords:',
-            );
-          }),
-          first(),
-        );
-      }),
-      catchError((error) => {
-        console.error('Error finding user:', error);
-        throw new InternalServerErrorException('Error finding user');
-      }),
-      first(),
-    );
+  async validateUser(email: string, password: string) {
+    const user = await this._usersService.findByEmail(email);
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch) {
+        const { password, ...rta } = user;
+        return rta;
+      }
+    }
+    return null;
   }
 
-  generateJWT(user: any) {
-    const payload: PayloadToken = { role: user.id_role, sub: user.id };
-
+  generateJWT(user: User) {
+    const payload: PayloadToken = { role: user.id_role, sub: user.id_user };
     return {
       access_token: this.jwtService.sign(payload),
-      user
+      user,
     };
   }
 }
