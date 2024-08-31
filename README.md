@@ -75,12 +75,14 @@ $ npm run test:cov
 
         Colocar el archivo en la carpeta raíz del proyecto **prod.env**
 
-    3.- ingresamos al 
+    3.- Ubicarse en la carpeta del proyecto y ejecutar
+
+        npm run start:dev || npm run start:prod
+
+    4.- ingresamos al 
         
         localhost:3000
 
-    4.- para la documentacion acceder a
+    5.- para la documentacion acceder a
 
         http://localhost:3000/docs
-
-
