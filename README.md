@@ -79,7 +79,7 @@ $ npm run test:cov
 
         npm run start:dev || npm run start:prod
 
-    4.- ingresamos al 
+    4.- ingresamos al navegador de tu preferencia
         
         localhost:3000
 
