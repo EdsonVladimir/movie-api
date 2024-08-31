@@ -1,9 +1,8 @@
 /**
  * @author Edson Sosa
  */
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { catchError, first, from, Observable, of, switchMap } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../../users/services/users.service';
 import { User } from '../../users/Entities/user.entity';

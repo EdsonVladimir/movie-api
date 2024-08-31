@@ -1,7 +1,12 @@
 /**
  *@autor Edson Sosa
  */
-import { ConflictException, Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Client, QueryResult } from 'pg';
 import { User } from '../Entities/user.entity';
 import { CreateUserDto } from '../dtos/user.dtos';
