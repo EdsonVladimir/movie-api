@@ -1,8 +1,12 @@
 import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom } from 'rxjs';
-import { CreateMovieDto, DeleteMovieDto, UpdateMovieDto } from '../dtos/movie.dtos';
-import { Client, QueryResult } from 'pg';
+import {
+  CreateMovieDto,
+  DeleteMovieDto,
+  UpdateMovieDto,
+} from '../dtos/movie.dtos';
+import { Client } from 'pg';
 import { Movie } from '../entities/movie.entity';
 
 @Injectable()
