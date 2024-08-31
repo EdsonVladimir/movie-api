@@ -66,7 +66,7 @@ export class MoviesController {
 
   @ApiOperation({
     summary:
-      '* Endpoint para eliminar una película. Solo los "Administradores" deberían tener acceso a este endpoint | Necesita Token de Usuario Admin id_role = 1',
+      '* Endpoint o cron que sincronice el listado de películas que devuelve la API de Stars Wars. Solo para "Administradores" en caso de ser un endpoint. | Necesita Token de Usuario Admin id_role = 1',
   })
   @Roles(Role.ADMIN)
   @Get()
