@@ -9,7 +9,7 @@ export class RolesController {
 
   @ApiOperation({ summary: 'get registered roles' })
   @Get()
-  private getAllRoles() {
+  public getAllRoles() {
     return this._rolesService.getAllRoles();
   }
 }

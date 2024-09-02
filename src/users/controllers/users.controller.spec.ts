@@ -1,33 +1,50 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from '../services/users.service';
+import { Test } from '@nestjs/testing';
+import { User } from '../Entities/user.entity';
 
 describe('UsersController', () => {
-  let controller: UsersController;
-  let service: UsersService;
+  let userController: UsersController;
+  let userService: UsersService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
         {
           provide: UsersService,
           useValue: {
-            findAll: jest.fn().mockResolvedValue([]),
-            findOne: jest.fn().mockResolvedValue({}),
-            create: jest.fn().mockResolvedValue({}),
-            update: jest.fn().mockResolvedValue({}),
-            remove: jest.fn().mockResolvedValue({}),
+            findAll: jest.fn().mockResolvedValue([
+              {
+                email: 'edson@gmail.com',
+                id_user: 1,
+                role: 'ADMIN',
+                name: 'Edson Sosa',
+              },
+            ]),
           },
         },
       ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
-    service = module.get<UsersService>(UsersService);
+    userService = moduleRef.get<UsersService>(UsersService);
+    userController = moduleRef.get<UsersController>(UsersController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('getUsers', () => {
+    it('se supone que debe devolver un array de usuarios', async () => {
+      const result: User[] = [
+        {
+          email: 'edson@gmail.com',
+          id_user: 1,
+          role: 'ADMIN',
+          name: 'Edson Sosa',
+        },
+      ];
+
+      jest.spyOn(userService, 'findAll').mockResolvedValue(result);
+
+      expect(await userController.getUsers()).toBe(result);
+    });
   });
 });

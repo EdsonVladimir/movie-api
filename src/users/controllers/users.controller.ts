@@ -22,14 +22,14 @@ export class UsersController {
   @Post()
   @Public()
   @ApiOperation({ summary: '* Endpoint para registro de nuevos usuarios.' })
-  private createUser(@Body() payload: CreateUserDto): Promise<User> {
+  public createUser(@Body() payload: CreateUserDto): Promise<User> {
     return this._usersService.createUser(payload);
   }
 
   @Roles(Role.ADMIN)
   @Get()
-  @ApiOperation({ summary: 'get all users' })
-  private getUsers(): Promise<User[]> {
+  @ApiOperation({ summary: 'get all users | Necesita token de usuario Admin' })
+  public getUsers(): Promise<User[]> {
     return this._usersService.findAll();
   }
 }
