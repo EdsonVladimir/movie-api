@@ -18,7 +18,9 @@ describe('AuthController', () => {
   };
 
   const mockAuthService = {
-    generateJWT: jest.fn().mockReturnValue({ access_token: 'token', user: mockUser })
+    generateJWT: jest
+      .fn()
+      .mockReturnValue({ access_token: 'token', user: mockUser }),
   };
 
   beforeEach(async () => {

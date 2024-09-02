@@ -1,33 +1,53 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RolesController } from './roles.controller';
 import { RolesService } from '../services/roles.service';
+import { Role } from '../Entities/roles.entity';
 
 describe('RolesController', () => {
-  let controller: RolesController;
-  let service: RolesService;
+  let rolesController: RolesController;
+  let rolesService: RolesService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [RolesController],
       providers: [
         {
           provide: RolesService,
           useValue: {
-            findAll: jest.fn().mockResolvedValue([]),
-            findOne: jest.fn().mockResolvedValue({}),
-            create: jest.fn().mockResolvedValue({}),
-            update: jest.fn().mockResolvedValue({}),
-            remove: jest.fn().mockResolvedValue({}),
+            getAllRoles: jest.fn().mockResolvedValue([
+              {
+                id_role: 1,
+                name: 'ADMIN',
+                code: 'ADM',
+              },
+              {
+                id_role: 2,
+                name: 'CUSTOM',
+                code: 'CTM',
+              },
+            ]),
           },
         },
       ],
     }).compile();
 
-    controller = module.get<RolesController>(RolesController);
-    service = module.get<RolesService>(RolesService);
+    rolesController = moduleRef.get<RolesController>(RolesController);
+    rolesService = moduleRef.get<RolesService>(RolesService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('getAllRoles', () => {
+    it('se supone que debe devolver un array de Roles', async () => {
+      const result: Role[] = [
+        {
+          id_role: 1,
+          name: 'ADMIN',
+          code: 'ADM',
+        },
+      ];
+
+      jest.spyOn(rolesService, 'getAllRoles').mockResolvedValue(result);
+
+      expect(await rolesController.getAllRoles()).toBe(result);
+    });
   });
 });

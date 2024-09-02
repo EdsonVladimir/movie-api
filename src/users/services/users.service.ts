@@ -25,9 +25,9 @@ export class UsersService {
     const query: string = `INSERT INTO core.user(name, email, password, id_role) VALUES ($1, $2, $3, $4) RETURNING name, email`;
 
     try {
-      const imalExist: User = await this.findByEmail(email);
+      const emailExist: User = await this.findByEmail(email);
 
-      if (imalExist) {
+      if (emailExist) {
         throw new ConflictException(`this email ${email} already exists`);
       }
 

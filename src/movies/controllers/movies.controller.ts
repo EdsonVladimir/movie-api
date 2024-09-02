@@ -20,14 +20,17 @@ export class MoviesController {
   @ApiOperation({ summary: '* Endpoint para obtener la lista de películas. | No Necesita Token' })
   @Public()
   @Get('all')
-  private _getAllMovies() {
+  public getAllMovies() {
     return this._movieService.getAllMoviesStarWarsApi();
   }
 
   @Roles(Role.CUSTOMER)
-  @ApiOperation({ summary: '* Endpoint para obtener los detalles de una película específica. Solo los "Usuarios Regulares" deberían tener acceso a este endpoint. | Necesita Token de Usuario Customer id_role = 2' })
+  @ApiOperation({
+    summary:
+      '* Endpoint para obtener los detalles de una película específica. Solo los "Usuarios Regulares" deberían tener acceso a este endpoint. | Necesita Token de Usuario Customer id_role = 2',
+  })
   @Get(':id')
-  private _getMovieById(@Param('id', ParseIntPipe) id: number) {
+  public getMovieById(@Param('id', ParseIntPipe) id: number) {
     return this._movieService.getMovieById(id);
   }
 
@@ -37,7 +40,7 @@ export class MoviesController {
   })
   @Roles(Role.ADMIN)
   @Post('create')
-  private createMovie(@Body() createMovieDto: CreateMovieDto) {
+  public createMovie(@Body() createMovieDto: CreateMovieDto) {
     return this._movieService.createMovie(createMovieDto);
   }
 
@@ -47,7 +50,7 @@ export class MoviesController {
   })
   @Roles(Role.ADMIN)
   @Put('update/:id')
-  private updateMovie(
+  public updateMovie(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateMovieDto
   ) {
@@ -60,7 +63,7 @@ export class MoviesController {
   })
   @Roles(Role.ADMIN)
   @Delete('delete/:id')
-  private deleteMovie(@Param('id', ParseIntPipe) id: number) {
+  public deleteMovie(@Param('id', ParseIntPipe) id: number) {
     return this._movieService.deleteMovie(id);
   }
 
@@ -70,7 +73,7 @@ export class MoviesController {
   })
   @Roles(Role.ADMIN)
   @Get()
-  private getAllMoviesCron() {
+  public getAllMoviesCron() {
     return this._movieService.getAllMoviesCron();
   }
 }
